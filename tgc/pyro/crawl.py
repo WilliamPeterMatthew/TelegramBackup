@@ -8,6 +8,18 @@ from hypy_utils.dict_utils import remove_keys
 from pyrogram import Client
 from pyrogram.file_id import FileId
 from pyrogram.types import User, Chat, Message, Sticker
+from pyrogram import utils
+
+def get_peer_type_new(peer_id: int) -> str:
+    peer_id_str = str(peer_id)
+    if not peer_id_str.startswith("-"):
+        return "user"
+    elif peer_id_str.startswith("-100"):
+        return "channel"
+    else:
+        return "chat"
+
+utils.get_peer_type = get_peer_type_new
 
 from .config import load_config, Config
 from .consts import HTML
